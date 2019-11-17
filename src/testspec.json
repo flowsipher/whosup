@@ -1,0 +1,155 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "signals": [
+    { "name": "chartHeight", "value": 300 },
+    { "name": "chartPad", "value": 20 },
+    { "name": "height", "update": "2 * chartHeight + chartPad" },
+    { "name": "width", "update": "750" }
+  ],
+
+  "data": [
+    {
+      "name": "table",
+      "values": [{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":671,"name":"AFSCME People Pac"},{"side":"Democrat","week":"2018-10-29T07:00:00.000Z","ads":2165,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-09-24T07:00:00.000Z","ads":62,"name":"WOMEN VOTE"},{"side":"Democrat","week":"2018-04-09T07:00:00.000Z","ads":406,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-08-13T07:00:00.000Z","ads":663,"name":"Red and Gold"},{"side":"Republican","week":"2018-09-17T07:00:00.000Z","ads":377,"name":"Defend ARIZONA"},{"side":"Republican","week":"2018-09-03T07:00:00.000Z","ads":909,"name":"NRSC"},{"side":"Democrat","week":"2018-08-20T07:00:00.000Z","ads":40,"name":"Red and Gold"},{"side":"Republican","week":"2018-09-03T07:00:00.000Z","ads":88,"name":"One Nation"},{"side":"Democrat","week":"2018-04-16T07:00:00.000Z","ads":413,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":22,"name":"AFSCME People Pac"},{"side":"Republican","week":"2018-09-03T07:00:00.000Z","ads":294,"name":"McSally"},{"side":"Republican","week":"2018-07-30T07:00:00.000Z","ads":110,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-09-24T07:00:00.000Z","ads":801,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-22T07:00:00.000Z","ads":1696,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-09-10T07:00:00.000Z","ads":861,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-15T07:00:00.000Z","ads":1245,"name":"Defend ARIZONA"},{"side":"Republican","week":"2018-11-05T07:00:00.000Z","ads":222,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-10-22T07:00:00.000Z","ads":143,"name":"Senate Majority"},{"side":"Republican","week":"2018-10-08T07:00:00.000Z","ads":1161,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-09-03T07:00:00.000Z","ads":671,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-05-21T07:00:00.000Z","ads":242,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-29T07:00:00.000Z","ads":7,"name":"Senate Majority"},{"side":"Democrat","week":"2018-08-06T07:00:00.000Z","ads":1800,"name":"Red and Gold"},{"side":"Republican","week":"2018-09-24T07:00:00.000Z","ads":364,"name":"McSally"},{"side":"Democrat","week":"2018-10-01T07:00:00.000Z","ads":729,"name":"DSCC"},{"side":"Republican","week":"2018-09-10T07:00:00.000Z","ads":1131,"name":"NRSC"},{"side":"Republican","week":"2018-09-24T07:00:00.000Z","ads":1200,"name":"NRSC"},{"side":"Republican","week":"2018-09-10T07:00:00.000Z","ads":465,"name":"McSally"},{"side":"Democrat","week":"2018-10-22T07:00:00.000Z","ads":1165,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":486,"name":"US Chamber of Commerce"},{"side":"Republican","week":"2018-08-06T07:00:00.000Z","ads":531,"name":"McSally"},{"side":"Democrat","week":"2018-10-29T07:00:00.000Z","ads":114,"name":"WOMEN VOTE"},{"side":"Democrat","week":"2018-09-24T07:00:00.000Z","ads":2282,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-09-10T07:00:00.000Z","ads":2517,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-06-04T07:00:00.000Z","ads":304,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-06-11T07:00:00.000Z","ads":154,"name":"One Nation"},{"side":"Republican","week":"2018-07-23T07:00:00.000Z","ads":84,"name":"One Nation"},{"side":"Republican","week":"2018-10-01T07:00:00.000Z","ads":993,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":87,"name":"US Chamber of Commerce"},{"side":"Democrat","week":"2018-08-13T07:00:00.000Z","ads":267,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-11-05T07:00:00.000Z","ads":10,"name":"DSCC"},{"side":"Democrat","week":"2018-05-28T07:00:00.000Z","ads":228,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":978,"name":"DSCC"},{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":1261,"name":"DSCC"},{"side":"Democrat","week":"2018-10-22T07:00:00.000Z","ads":105,"name":"WOMEN VOTE"},{"side":"Democrat","week":"2018-07-30T07:00:00.000Z","ads":45,"name":"American Civil Liberties Union Inc   ACLU "},{"side":"Democrat","week":"2018-08-20T07:00:00.000Z","ads":265,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-29T07:00:00.000Z","ads":1389,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-08-27T07:00:00.000Z","ads":42,"name":"Defend ARIZONA"},{"side":"Republican","week":"2018-10-22T07:00:00.000Z","ads":646,"name":"McSally"},{"side":"Democrat","week":"2018-08-06T07:00:00.000Z","ads":292,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-05-14T07:00:00.000Z","ads":564,"name":"Patriot Majority"},{"side":"Democrat","week":"2018-07-23T07:00:00.000Z","ads":82,"name":"American Civil Liberties Union ARIZONA"},{"side":"Democrat","week":"2018-06-11T07:00:00.000Z","ads":296,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-22T07:00:00.000Z","ads":222,"name":"NRSC"},{"side":"Democrat","week":"2018-07-23T07:00:00.000Z","ads":312,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-08-13T07:00:00.000Z","ads":471,"name":"McSally"},{"side":"Democrat","week":"2018-09-17T07:00:00.000Z","ads":725,"name":"DSCC"},{"side":"Democrat","week":"2018-09-03T07:00:00.000Z","ads":1200,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-04-23T07:00:00.000Z","ads":394,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-29T07:00:00.000Z","ads":546,"name":"McSally"},{"side":"Republican","week":"2018-08-20T07:00:00.000Z","ads":677,"name":"McSally"},{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":1105,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-07-16T07:00:00.000Z","ads":216,"name":"One Nation"},{"side":"Democrat","week":"2018-10-29T07:00:00.000Z","ads":1153,"name":"DSCC"},{"side":"Democrat","week":"2018-10-01T07:00:00.000Z","ads":6,"name":"Senate Majority"},{"side":"Democrat","week":"2018-11-05T07:00:00.000Z","ads":313,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-09-17T07:00:00.000Z","ads":309,"name":"McSally"},{"side":"Republican","week":"2018-09-17T07:00:00.000Z","ads":1008,"name":"NRSC"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":1072,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-07-23T07:00:00.000Z","ads":45,"name":"American Civil Liberties Union Inc   ACLU "},{"side":"Republican","week":"2018-10-01T07:00:00.000Z","ads":116,"name":"Arizona Republican Party"},{"side":"Democrat","week":"2018-10-22T07:00:00.000Z","ads":145,"name":"US Chamber of Commerce"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":75,"name":"WOMEN VOTE"},{"side":"Republican","week":"2018-06-18T07:00:00.000Z","ads":186,"name":"One Nation"},{"side":"Republican","week":"2018-06-25T07:00:00.000Z","ads":16,"name":"One Nation"},{"side":"Republican","week":"2018-07-30T07:00:00.000Z","ads":327,"name":"McSally"},{"side":"Democrat","week":"2018-05-28T07:00:00.000Z","ads":276,"name":"Patriot Majority"},{"side":"Democrat","week":"2018-10-22T07:00:00.000Z","ads":1515,"name":"DSCC"},{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":75,"name":"WOMEN VOTE"},{"side":"Democrat","week":"2018-07-16T07:00:00.000Z","ads":240,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-08T07:00:00.000Z","ads":471,"name":"McSally"},{"side":"Republican","week":"2018-10-08T07:00:00.000Z","ads":923,"name":"NRSC"},{"side":"Republican","week":"2018-11-05T07:00:00.000Z","ads":17,"name":"McSally"},{"side":"Republican","week":"2018-10-15T07:00:00.000Z","ads":609,"name":"NRSC"},{"side":"Democrat","week":"2018-09-17T07:00:00.000Z","ads":900,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-08-27T07:00:00.000Z","ads":501,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-05-14T07:00:00.000Z","ads":386,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-15T07:00:00.000Z","ads":577,"name":"McSally"},{"side":"Democrat","week":"2018-06-25T07:00:00.000Z","ads":254,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-09-10T07:00:00.000Z","ads":619,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-06-18T07:00:00.000Z","ads":318,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-07-30T07:00:00.000Z","ads":82,"name":"American Civil Liberties Union ARIZONA"},{"side":"Republican","week":"2018-09-24T07:00:00.000Z","ads":615,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-07-30T07:00:00.000Z","ads":271,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-01T07:00:00.000Z","ads":682,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-04-30T07:00:00.000Z","ads":409,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-01T07:00:00.000Z","ads":383,"name":"McSally"},{"side":"Democrat","week":"2018-09-24T07:00:00.000Z","ads":981,"name":"DSCC"},{"side":"Republican","week":"2018-10-01T07:00:00.000Z","ads":959,"name":"NRSC"},{"side":"Democrat","week":"2018-05-07T07:00:00.000Z","ads":366,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-08-06T07:00:00.000Z","ads":442,"name":"Defend ARIZONA"},{"side":"Republican","week":"2018-08-27T07:00:00.000Z","ads":194,"name":"McSally"},{"side":"Republican","week":"2018-08-27T07:00:00.000Z","ads":206,"name":"One Nation"},{"side":"Democrat","week":"2018-11-05T07:00:00.000Z","ads":114,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":2652,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Republican","week":"2018-07-02T07:00:00.000Z","ads":114,"name":"One Nation"},{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":32,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-07-09T07:00:00.000Z","ads":283,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-15T07:00:00.000Z","ads":190,"name":"Arizona Republican Party"},{"side":"Democrat","week":"2018-10-01T07:00:00.000Z","ads":1088,"name":"Kyrsten Sinema"},{"side":"Democrat","week":"2018-10-15T07:00:00.000Z","ads":7,"name":"Senate Majority"},{"side":"Democrat","week":"2018-10-08T07:00:00.000Z","ads":208,"name":"Senate Majority"},{"side":"Democrat","week":"2018-07-30T07:00:00.000Z","ads":1097,"name":"Red and Gold"},{"side":"Republican","week":"2018-10-08T07:00:00.000Z","ads":330,"name":"Arizona Republican Party"},{"side":"Republican","week":"2018-10-22T07:00:00.000Z","ads":1398,"name":"Defend ARIZONA"},{"side":"Republican","week":"2018-08-20T07:00:00.000Z","ads":674,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-08-27T07:00:00.000Z","ads":550,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-10-29T07:00:00.000Z","ads":1145,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-09-17T07:00:00.000Z","ads":2260,"name":"MAJORITY FORWARD VOTE VETS ACTION FUND"},{"side":"Democrat","week":"2018-07-02T07:00:00.000Z","ads":6,"name":"Kyrsten Sinema"},{"side":"Republican","week":"2018-07-09T07:00:00.000Z","ads":194,"name":"One Nation"},{"side":"Republican","week":"2018-08-13T07:00:00.000Z","ads":1026,"name":"Defend ARIZONA"},{"side":"Democrat","week":"2018-10-01T07:00:00.000Z","ads":71,"name":"WOMEN VOTE"},{"side":"Democrat","week":"2018-05-21T07:00:00.000Z","ads":421,"name":"Patriot Majority"}],
+      "transform": [
+        {
+         "type": "formula",
+         "as": "weekstart",
+         "expr": "timeFormat(datetime(datum.week), '%m/%d')"
+        },
+        {
+          "type": "stack",
+          "groupby": ["week", "side"],
+          "sort": {"field": "name"},
+          "field": "ads"
+        }
+      ]
+    },
+    {
+      "name": "top",
+      "source": "table",
+      "transform": [
+        {"type": "filter", "expr": "datum.side == 'Democrat'"}
+      ]
+    },
+    {
+      "name": "bottom",
+      "source": "table",
+      "transform": [
+        {"type": "filter", "expr": "datum.side == 'Republican'"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "range": [{"signal": "width"}, 0],
+      "round": true,
+      "domain": {"data": "table", "field": "weekstart", "sort": {"order": "descending"}}
+    },
+    {
+      "name": "c",
+      "type": "ordinal",
+      "domain": ["Democrat", "Republican"],
+      "range": ["#1f77b4", "#e377c2"]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "y": {"signal": "chartHeight + chartPad / 2"},
+          "x": {"scale": "x", "field": "weekstart", "band": 0.5},
+          "text": {"field": "weekstart"},
+          "baseline": {"value": "middle"},
+          "align": {"value": "center"},
+          "fill": {"value": "#000"}
+        }
+      }
+    },
+    {
+      "type": "group",
+      "encode": {
+        "update": {
+          "y": {"value": 0},
+          "width": {"signal": "width"}
+        }
+      },
+      "scales": [
+        {
+          "name": "y",
+          "type": "linear",
+          "range": [{"signal": "chartHeight"}, 0],
+          "nice": true, "zero": true,
+          "domain": {"data": "table", "field": "y0"}
+        }
+      ],
+      "axes": [
+        {"orient": "left", "scale": "y", "format": "s"}
+      ],
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "top"},
+          "encode": {
+            "enter": {
+              "y": {"scale": "y", "field": "y0"},
+              "y2": {"scale": "y", "field": "y1"},
+              "x": {"scale": "x", "field": "weekstart"},
+              "width": {"scale": "x", "band": 1, "offset": -1},
+              "fillOpacity": {"value": 0.6},
+              "fill": {"scale": "c", "field": "side"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+
+      "encode": {
+        "update": {
+          "y": {"signal": "chartHeight + chartPad"},
+          "width": {"signal": "width"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "y",
+          "type": "linear",
+          "range": [0, {"signal": "chartHeight"}],
+          "nice": true, "zero": true,
+          "domain": {"data": "table", "field": "y1"}
+        }
+      ],
+
+      "axes": [
+        {"orient": "left", "scale": "y", "format": "s"}
+      ],
+
+      "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "bottom"},
+          "encode": {
+            "enter": {
+              "y": {"scale": "y", "field": "y0"},
+              "y2": {"scale": "y", "field": "y1"},
+              "x": {"scale": "x", "field": "weekstart"},
+              "width": {"scale": "x", "band": 1, "offset": -1},
+              "fillOpacity": {"value": 0.6},
+              "fill": {"scale": "c", "field": "side"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

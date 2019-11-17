@@ -1,33 +1,117 @@
-.App {
-  text-align: center;
+.vega-embed {
+  height: 100vh;
+  width: 100vw;
+  display: flex !important;
+  flex-direction: column-reverse;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.vega-bindings{
+  height: 20px;
+  display: flex;
+  flex-direction: row;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.test{
+  height: 100vh;
+}
+.svgIcon{
+  top: .125em;
+  position: relative;
+}
+.legendItem{
+  padding-right: 15px;
+  white-space: nowrap;
+}
+.raceSelect{
+  cursor: pointer;
+  border-bottom: 2px solid black;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.raceSelectDropdown{
+  font-size: inherit;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.raceSelectDropownButton {
+  cursor: pointer;
+  padding: 5px;
+}
+.raceSelectDropownButton:hover {
+  background-color: #F2F2F2;
 }
 
-.App-link {
-  color: #61dafb;
+.testarosta{
+  width: 100% !important;
+  display:block;
+  overflow: auto;
+}
+.dashFooter{
+  width: 100% !important;
+}
+.testarosta tr td{
+  color: rgb(0, 0, 0) !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.testarosta tr th{
+  color: rgb(0, 0, 0) !important;
+}
+
+.testarosta tr th:nth-child(3){ 
+    width:8%;
+}
+.testarosta tr td:nth-child(3){
+    width:8%;
+}
+.testarosta tr th:nth-child(1){
+    width:5%;
+}
+.testarosta tr td:nth-child(1){
+    width:5%;
+}
+.testarosta tr th:nth-child(4){
+    width:10%;
+}
+.noLeftPad {
+  padding-left: 0px !important;
+}
+.testarosta tr td:nth-child(4){
+    width:10%;
+}
+.testarosta tr th:nth-child(5){
+    width:12%;
+}
+.testarosta tr td:nth-child(5){
+    width:12%;
+}
+.testarosta tr th:nth-child(6){
+    width:17%;
+}
+.testarosta tr td:nth-child(6){
+    width:17%;
+}
+.testarosta tr th:nth-child(7){
+    width:8%;
+}
+.testarosta tr td:nth-child(7){
+    width:8%;
+}
+.dashFooter tr td:nth-child(1){
+  width: 30%;
+}
+.dashFooter tr td:nth-child(2){
+  width: 20%;
+}
+
+body {
+/*  background-color: #FFFFF3; */
+  height: 100vh;
+  display: block
+}
+.vega-embed details{
+  display:hidden !important;
+}
+
+.root{
+  height:100vh;
+  width: 100vw;
 }
