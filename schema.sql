@@ -25,13 +25,16 @@ CREATE TABLE ads (
  airdate date,
  cycle int, 
  rate real,
- program text
+ program text,
+ airtime text
 );
 
 
-COPY stations(sign, state, network, dma, channel, id, medium) FROM '/home/andrew/Documents/PredictiveModeling/TV/stationsPhoenixdma.csv' DELIMITER ',' CSV HEADER;
+\COPY stations(sign, state, network, dma, channel, id, medium) FROM '/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/results/stationsPhoenixdma.csv' DELIMITER ',' CSV HEADER;
 
-COPY pacs(cycle, district, juris, name, side, race, id) FROM '/home/andrew/Documents/PredictiveModeling/TV/comsupload.csv' DELIMITER ',' CSV HEADER;
+\COPY pacs(cycle, district, juris, name, side, race, id) FROM '/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/results/comsupload.csv' DELIMITER ',' CSV HEADER;
 
-COPY ads(airdate, program, rate, cycle, pacid, stationid) FROM '/home/andrew/Documents/PredictiveModeling/TV/adsupload.csv' DELIMITER ',' CSV HEADER;
+\COPY ads(airdate, rate, program, cycle, airtime, pacid, stationid) FROM '/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/results/adsupload.csv' DELIMITER ',' CSV HEADER;
+
+/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/
 

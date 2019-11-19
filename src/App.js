@@ -25,27 +25,8 @@ const iconTheme = deepMerge(base, {
   	}
 })
 
-const availableRaces = [
- 'Senate',
- 'House',
- 'President',
- 'Governor',
- 'Attorney General',
- 'Secretary of State',
- 'Superintendent of Public Instruction',
- 'State Treasurer',
- 'Mayor',
- 'Prop 127',
- 'Prop 305',
- 'Prop 129',
- 'Prop 126',
- 'Impeachment',
- 'Tax Returns',
- 'GOTV',
- 'Red for Ed'
-]
 
-const partisanColors = {'Democrat': 'blue', 'Republican': 'red'}
+const partisanColors = {'Democrat': '#2580db', 'Republican': '#990033'}
 const colors = ['green', 'purple', 'orange'];
 
 const startingQuery = {
@@ -59,12 +40,14 @@ const startingQuery = {
 function App() {
 	const [adData, setAdData] = useState([]);
 	const [adQuery, setAdQuery] = useState(startingQuery);
+	const [pacData, setPacData] = useState([])
 	const [sides, setSides] = useState([])
 	useEffect(() => { // Get starting chart data.
 		axios.get(process.env.REACT_APP_GET_ADDATA+'/race', {params: adQuery}) 
 		.then(function (response) {
 			console.log(response.data)
-			setAdData(response.data);
+			setPacData(response.data.pacresults.rows)
+			setAdData(response.data.weekresults);
 		})
 	}, [adQuery]);
 	useEffect(()=>{
@@ -84,43 +67,21 @@ function App() {
 
 	return (
 		<Grommet full theme={generate(20, 5)}>
-		    <Grid
-            fill
-            rows={["xxsmall", "flex"]}
-            columns={["2/3", "1/3"]}
-            areas={[
-              ['header', 'header'],
+		    <Grid fill rows={["flex"]} columns={["2/3", "1/3"]} areas={[
               ["table", "charts"],
               ['footer', 'footer']
             ]}
           >
-            <Box
-              gridArea="header"
-              alignContent="center"
-              pad={{top: "5px"}}
-            >
-            	<Text size="large" weight="bold" alignSelf="center"> Arizona 
-		               <RaceSelect
-		                     options={availableRaces}
-		                     value={adQuery.race}
-		                     onChange={(option) =>{ console.log(option);adQuery.race = option; console.log(adQuery); setAdQuery(JSON.parse(JSON.stringify(adQuery))); }}
-		                  > </RaceSelect>
-		                Race
-	           	</Text>
-            </Box>
-            <PacTable adData={adData} sides={sides}> </PacTable>
+            <PacTable adData={adData} sides={sides} pacData={pacData} race={adQuery.race}
+			onRaceSelect={(option) =>{ adQuery.race = option; setAdQuery(JSON.parse(JSON.stringify(adQuery))); }}
+			> </PacTable>
             <DashFooter sides={sides}> </DashFooter>
-		    <Grid
-            fill
-            rows={["xxsmall", "1/3", "1/3", "1/3"]}
-            areas={[
+		    <Grid fill rows={["xxsmall", "1/3", "1/3", "1/3"]} gridArea={'charts'} areas={[
               ['chartheader'],
               ["chart1"],
               ["chart2"],
               ["chart3"]
-            ]}
-            gridArea={'charts'}
-            >
+            ]}>
             <Box gridArea="chartheader" direction="row" pad={{ horizontal: "small", vertical: "small" }} fill>
 	             <Table> 
 	             	<TableHeader  className="noLeftPad">

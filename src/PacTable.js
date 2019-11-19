@@ -5,22 +5,50 @@ import { Run, Money, base } from 'grommet-icons';
 import { deepMerge } from "grommet/utils";
 import SpendSpark from './SpendSpark.js'
 import NetworkBar from './NetworkBar.js'
+import SpendBox from './SpendBox.js'
 import { format } from 'd3-format'
 import calculateIntervals from './calcInterval.js'
-const iconTheme = deepMerge(base, {
-  	icon: {
-  		size: { medium: '18px'} 
-  	}
+
+import RaceSelect from './RaceSelect.js'
+
+const availableRaces = [
+	'Senate',
+	'House',
+	'President',
+	'Governor',
+	'Attorney General',
+	'Secretary of State',
+	'Superintendent of Public Instruction',
+	'State Treasurer',
+	'Mayor',
+	'Prop 127',
+	'Prop 305',
+	'Prop 126',
+	'Impeachment',
+	'Tax Returns',
+	'GOTV',
+	'Red for Ed'
+   ]
+   const iconTheme = deepMerge(base, {
+	icon: {
+		size: { medium: '18px'} 
+	}
 })
 
 var PacTable = function (props) {
 	const [tableData, setTableData] = useState([]);
 	const [timeline, setTimeline] = useState({})
+	const [spendDim, setSpendDim] = useState([]) // Spend Dimensions
+	const [boxData, setBoxData] = useState([])
 	const tableColumns = [
+		{header: <span>Race: 
+			<RaceSelect options={availableRaces} value={props.race} onChange={(option)=>props.onRaceSelect(option)}> </RaceSelect>
+			<br />
+			Fuck
+		</span> , property: "name", sortable: false, search: false, primary: true, render: (val)=>{return <span> {val.name} </span>}},
 		{header: "Type", property: "juris", sortable: true, 
 		render: (val)=> {return val.juris=='Non-Candidate Issue Ads' ? <Money size="medium" theme={iconTheme}/> : 
 		<Run size="medium" theme={iconTheme}/>}},
-		{header: "PAC", property: "name", sortable: true, primary: true},
 		{header: "Side", property: "side", sortable: true, render: (val)=>{ 
 			let sideVal = props.sides.filter(s=> s.long==val.side);
 			return (
@@ -28,10 +56,18 @@ var PacTable = function (props) {
 			)
 		}},
 		{header: "Timeline", property: "buys", render: (val)=>{return <SpendSpark timeline={timeline} 
-		buyData={val.buys} ></SpendSpark> }},
+		buyData={val.buys} color={props.sides.filter(s=>s.long==val.side)[0].color} ></SpendSpark> }},
 		{header: "Spend", property: "cost", align: "end", sortable: true, 
 		 render: (val)=>{return format('$.2s')(val.cost)}},
-		{header: "Network Split", property: "test", render: (val)=>{return <NetworkBar buyData={val.buys} ></NetworkBar> }},
+		{header: "Spend ", property: "test", render: (val)=>{
+		return (
+			<SpendBox 
+				boxData={boxData.filter(f=>{return f.name==val.name})[0]} 
+				dimensions={spendDim}
+				color={props.sides.filter(s=>s.long==val.side)[0].color}
+			>
+			</SpendBox>
+		) }},
 		{header: "Ads", property: "ads", align: "end", sortable: true, render: (val)=>{return format('.2s')(val.ads)}}
 	]
 	useEffect(() => { // Calculate table data.
@@ -56,11 +92,22 @@ var PacTable = function (props) {
 				}
 				return acc;
 			}, [])
-
 			setTimeline(calculateIntervals(timeline))
 			setTableData(rows)
 		}
-	}, [props.adData])
+		if (props.pacData.length != 0){
+			let spendDimensions = [
+									props.pacData.reduce((min, p) => p.whiskerlow < min ? p.whiskerlow : min, props.pacData[0].whiskerlow), 
+									props.pacData.reduce((max, p) => p.whiskerhigh > max ? p.whiskerhigh : max, props.pacData[0].whiskerhigh)
+								  ];
+			let boxData = props.pacData.map(p=>{
+				return {name: p.name, whiskerHigh: p.whiskerhigh, whiskerLow: p.whiskerlow, quartile1: p.quartile1, quartile2: p.quartile2, quartile3: p.quartile3, outliers: []}
+			})
+			console.log(spendDimensions)
+			setBoxData(boxData)
+			setSpendDim(spendDimensions)
+		}
+	}, [props.adData, props.pacData])
 	return (
 		<Box gridArea="table" direction="row" pad={{ horizontal: "small", vertical: "small", bottom: "0px" }} fill>
               <DataTable
@@ -68,7 +115,13 @@ var PacTable = function (props) {
                       columns={tableColumns}
                       data={tableData}
                       step={10}
-                      size='full'
+					  size='full'
+					  border={{
+						"header": {
+						  "color": "#919eab",
+						  "side": "bottom"
+						}
+					  }}
                       sortable
                       background={{
                         body: ["none", "light-1"],
@@ -80,3 +133,14 @@ var PacTable = function (props) {
 
 
 export default PacTable
+
+
+/*
+            <Box gridArea="header" alignContent="center" pad={{top: "5px"}} >
+            	<Text size="large" weight="bold" alignSelf="center" color="black"> 
+					Arizona 
+					<RaceSelect options={availableRaces} value={adQuery.race} onChange={(option) =>{ adQuery.race = option; setAdQuery(JSON.parse(JSON.stringify(adQuery))); }}> </RaceSelect>
+					Race
+	           	</Text>
+            </Box>
+*/

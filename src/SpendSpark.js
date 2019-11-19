@@ -14,8 +14,8 @@ var SpendSpark = function (props) {
 	}, [props.buyData, props.timeline])
 	return (
 		<Sparklines data={sparkData} margin={10} className="bentest" >
-			<SparklinesLine style={{ fill: "none", strokeWidth: 7}} />
-			<SparklinesSpots size={10} spotColors={{'1':'black'}} />
+			<SparklinesLine style={{ fill: "none", strokeWidth: 4}} color={props.color} />
+			<SparklinesSpots size={6} spotColors={{'1':props.color, '0': props.color, '-1': props.color}} />
 		</Sparklines>
     )
 }

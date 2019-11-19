@@ -8,7 +8,8 @@ const theme = {
   	ticks: {
   		text: {
   			fontSize: '15px',
-  			fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
+			  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+			  fill: '#919eab'
   		}
   	}
   },
@@ -76,8 +77,8 @@ var MarginChart = function (props) {
 	<Box gridArea="chart1" pad={{ horizontal: "medium", vertical: "small" }} flex>
 		<Text> Ads per week by side </Text>
 		<ResponsiveLine
-			margin={{ top: 0, right: 15, bottom: 25, left: 25 }}
-			colors={['blue','red','green']}
+			margin={{ top: 10, right: 15, bottom: 25, left: 35 }}
+			colors={['#2580db','#990033','green']}
 		    data={[
 		    	{
 			    	'id': 'side1', 
@@ -98,7 +99,6 @@ var MarginChart = function (props) {
 		    yScale={{
 		      type: 'linear',
 		    }}
-		    
 		    axisLeft={{
 		      format: (value) => {return format('.1s')(value)},
 		      orient: 'left',

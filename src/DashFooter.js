@@ -42,6 +42,19 @@ var DashFooter = function (props) {
 		            	<TableCell>
 		            		{sideKeys}
 		            	</TableCell>
+	            	</TableRow>
+	        	</TableFooter> 
+	    	</Table>
+	    </Box>
+    )
+}
+
+export default DashFooter
+
+
+
+
+/*
 		            	<TableCell>
 		            		<span className="legendItem">
 		            			<StatusInfoSmall color="red" size="medium" theme={iconTheme} className="svgIcon"/> - ABC
@@ -59,15 +72,4 @@ var DashFooter = function (props) {
 		            			<StatusInfoSmall color="purple" size="medium" theme={iconTheme} className="svgIcon"/> - Other
 		            		</span>
 		            	</TableCell>
-	            	</TableRow>
-	        	</TableFooter> 
-	    	</Table>
-	    </Box>
-    )
-}
-
-export default DashFooter
-
-
-
-
+*/

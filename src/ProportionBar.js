@@ -10,7 +10,8 @@ const theme = {
   	ticks: {
   		text: {
   			fontSize: '15px',
-  			fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
+			fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+			fill: '#919eab'	
   		}
   	}
   },
@@ -91,14 +92,14 @@ var ProportionBar = function (props) {
 		       minValue={0}
 		       maxValue={1}
 		       indexBy="int"
-		       margin={{ top: 0, right: 17, bottom: 35, left: 67 }}
-		       colors={['blue','red','green']}
+		       margin={{ top: 0, right: 17, bottom: 35, left: 85 }}
+		       colors={['#2580db','#990033','green']}
 		       layout="horizontal"
 		       axisTop={null}
 		       axisLeft={{ tickSize: 0, tickPadding: 5, tickRotation: 0, legend: '', legendOffset: 0 }}
 		       axisBottom={{ tickSize: 0, tickPadding: 5, tickRotation: 0, tickValues: [0,.25,.5,.75, 1],
 		       	format: val=>(val*100)+'%'
-		       }}
+			   }}
 		       enableGridY={false}
 		       animate={true}
 		       motionStiffness={90}
@@ -108,7 +109,7 @@ var ProportionBar = function (props) {
 	             {
 	               axis: 'x',
 	               value: .5,
-	               lineStyle: { stroke: 'black', strokeWidth: 2, strokeDasharray: "4 4" },
+	               lineStyle: { stroke: '#919eab', strokeWidth: 2, strokeDasharray: "4 4" },
 	             },
 	           ]}
 		   />

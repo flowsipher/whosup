@@ -48,6 +48,14 @@
 .dashFooter{
   width: 100% !important;
 }
+#root > div > div > div.StyledBox-sc-13pk1d4-0.khTSjy > table > thead > tr > th > button > div > span {
+  color:  #919eab !important;
+}
+
+.testarosta > thead > tr > th:nth-child(1) > button {
+  pointer-events: none;
+}
+
 .testarosta tr td{
   color: rgb(0, 0, 0) !important;
 }
@@ -57,31 +65,34 @@
 }
 
 .testarosta tr th:nth-child(3){ 
-    width:8%;
+    width: 20px;
 }
 .testarosta tr td:nth-child(3){
-    width:8%;
+  width: 20px;
 }
-.testarosta tr th:nth-child(1){
+.testarosta tr th:nth-child(2){
     width:5%;
 }
-.testarosta tr td:nth-child(1){
+.testarosta tr td:nth-child(2){
     width:5%;
 }
 .testarosta tr th:nth-child(4){
-    width:10%;
+    width:80px;
 }
 .noLeftPad {
   padding-left: 0px !important;
 }
 .testarosta tr td:nth-child(4){
-    width:10%;
+    width:80px;
 }
 .testarosta tr th:nth-child(5){
-    width:12%;
+    width:40px;
 }
 .testarosta tr td:nth-child(5){
-    width:12%;
+    width:40px;
+}
+.testarosta > thead > tr > th > button > div > svg {
+  display:none;
 }
 .testarosta tr th:nth-child(6){
     width:17%;
@@ -103,7 +114,8 @@
 }
 
 body {
-/*  background-color: #FFFFF3; */
+  background-color: #FEFDF9; 
+  color: #919eab !important;
   height: 100vh;
   display: block
 }
