@@ -1,15 +1,13 @@
 import './App.css';
-import React, { useState, useEffect, useRef } from 'react';
-import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, generate,
+import React from 'react';
+import {  Box, Text, 
 	Table,
 	TableCell,
-	TableHeader,
 	TableRow,
 	TableFooter
 } from 'grommet';
-import * as moment from 'moment';
 import { deepMerge } from "grommet/utils";
-import { Run, Money, base, StatusInfoSmall, StopFill } from 'grommet-icons';
+import { Run, Money, base } from 'grommet-icons';
 
 const iconTheme = deepMerge(base, {
   	icon: {
@@ -21,7 +19,7 @@ const iconTheme = deepMerge(base, {
 })
 
 var DashFooter = function (props) {
-	const sideKeys = props.sides.map((s)=><Box direction="row" key={s} align="center">
+	const sideKeys = props.sides.map((s)=><Box direction="row" key={s.long} align="center">
 		<nav className="bd-color" style={{background: s.color}}></nav>
 		<Text className="legendItem"> 
 			 - {s.long}

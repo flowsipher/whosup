@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Vega } from 'react-vega';
 import axios from 'axios';
 import '../node_modules/react-vis/dist/style.css';
 import MarginChart from './MarginChart.js'
@@ -7,24 +6,15 @@ import ProportionBar from './ProportionBar.js'
 import PacTable from './PacTable.js'
 import RaceSelect from './RaceSelect.js'
 import NetworkSplit from './NetworkSplit.js'
-import { Run, Money, base } from 'grommet-icons';
 import DashFooter from './DashFooter.js'
-import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, generate,
+import { Grommet, Box, Grid, generate,
 	Table,
 	TableCell,
 	TableHeader,
-	TableRow,
-	TableFooter
+	TableRow
 } from 'grommet';
-import { deepMerge } from "grommet/utils";
 
 import './App.css';
-
-const iconTheme = deepMerge(base, {
-  	icon: {
-  		size: { medium: '18px'} 
-  	}
-})
 
 const availableRaces = [
 	'Senate',
@@ -39,7 +29,6 @@ const availableRaces = [
 	'Prop 127',
 	'Prop 305',
 	'Prop 126',
-	'Impeachment',
 	'Tax Returns',
 	'GOTV',
 	'Red for Ed'
@@ -62,8 +51,6 @@ function App() {
 	useEffect(() => { // Get starting chart data.
 		axios.get(process.env.REACT_APP_GET_ADDATA+'/race', {params: adQuery}) 
 		.then(function (response) {
-			console.log("api response")
-			console.log(response.data)
 			var sides = [];
 			response.data.weekresults.forEach(ad=>{
 				if (sides.indexOf(ad.side) == -1){
@@ -99,8 +86,7 @@ function App() {
             			</TableRow>
             		</TableHeader>
             	</Table>
-            	<Box className="gridBox">
-			    <Grid fill rows={["flex", "flex", "flex"]}  areas={[
+			    <Grid fill rows={["flex", "flex", "flex"]} columns={[]}  areas={[
 	              ["chart1"],
 	              ["chart2"],
 	              ["chart3"]
@@ -109,13 +95,13 @@ function App() {
     	         <ProportionBar adData={adData.ad} sides={adData.sides}> </ProportionBar>
     	         <NetworkSplit adData={adData.ad} sides={adData.sides}> </NetworkSplit>
                 </Grid>
-                </Box>
              </Box>
           </Grid>
 		</Grommet>
 	);
 }
 /* 			
+
  <ControlPanel changeQuery={updateQuery} />
  #signalListeners={signalListeners}
 */

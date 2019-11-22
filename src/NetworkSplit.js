@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ResponsiveScatterPlot } from '@nivo/scatterplot'
-import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, generate,
-} from 'grommet';
+import React, { useState, useEffect} from 'react';
+import { ScatterPlot } from '@nivo/scatterplot'
+import { Box, Text } from 'grommet';
 import { format } from 'd3-format'
-
+import { AutoSizer } from 'react-virtualized'
 const keys = ['ABC', 'CBS', 'FOX', 'NBC', 'Other']
 const theme = {
   axis: {
@@ -47,9 +46,13 @@ var NetworkSplit = function (props) {
 		setSplitData(networkTotals)
 	}, [props.adData, props.sides])
 	return (
-		<Box gridArea="chart3" pad={{ horizontal: "small", vertical: "small", top: "5px" }} flex>
+		<Box gridArea="chart3" pad={{ horizontal: "small", vertical: "medium", top: "5px" }} flex>
 			<Text> Percentage of side spend per network </Text>
-			<ResponsiveScatterPlot
+			<AutoSizer>
+    		{({ height, width }) => (
+			<ScatterPlot
+				height={height}
+				width={width}
 			    data={splitData}
 			    colors={(el)=>{
 			    	if(props.sides.filter(s=>s.long==el.serieId).length>0){
@@ -87,6 +90,8 @@ var NetworkSplit = function (props) {
 			    legends={[]}
 			    theme={theme}
 			/>
+			)}
+			</AutoSizer>
 		</Box>
     )
 }

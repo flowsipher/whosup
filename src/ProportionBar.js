@@ -1,10 +1,10 @@
 import './App.css';
-import React, { useState, useEffect, useRef } from 'react';
-import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, Heading } from 'grommet';
-import { ResponsiveBar } from '@nivo/bar'
+import React, { useState, useEffect  } from 'react';
+import { Box,  Text } from 'grommet';
+import { Bar } from '@nivo/bar'
 import * as moment from 'moment';
 import calculateInterval from './calcInterval.js'
-
+import { AutoSizer } from 'react-virtualized'
 const theme = {
   axis: {
   	ticks: {
@@ -76,7 +76,6 @@ var ProportionBar = function (props) {
 				})
 				return returnObj;
 			})
-			console.log(barData)
 			barData = barData.reverse()
 			rows = rows.sort((a, b) => b['week']-a['week'])
 			setProporData(barData)
@@ -85,7 +84,11 @@ var ProportionBar = function (props) {
 	return (
 	<Box gridArea="chart2" pad={{ horizontal: "small", vertical: "small" }} flex>
 		<Text> Proportion of total spending by side </Text>
-		<ResponsiveBar
+		<AutoSizer>
+    	{({ height, width }) => (
+		<Bar
+				height={height}
+				width={width}
 			   theme={theme}
 		       data={proporData}
 		       colors={(val)=>{return val.data[(val.id+'Color')];}}
@@ -115,6 +118,8 @@ var ProportionBar = function (props) {
 	             },
 	           ]}
 		   />
+		)}
+		</AutoSizer>
 	 </Box>
 	)
 }

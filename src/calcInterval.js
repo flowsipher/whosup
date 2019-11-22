@@ -1,7 +1,6 @@
 import * as moment from 'moment';
 
 export default function calculateIntervals(timeline){
-	console.log(timeline)
 	let lengthOfElection=((timeline.end-timeline.start)/86400000)
 	let intervalConfig = {}
 	if(lengthOfElection>=180){ // Bi-monthly

@@ -10,7 +10,7 @@
   flex-direction: row;
 }
 .gridBox{
-  height: inherit !important;
+  height: 500px !important;
 }
 .test{
   height: 100vh;

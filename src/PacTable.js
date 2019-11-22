@@ -1,16 +1,13 @@
 import './App.css';
-import React, { useState, useEffect, useRef } from 'react';
-import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, Heading} from 'grommet';
+import React, { useState, useEffect } from 'react';
+import { Box, Grid, Text, DataTable } from 'grommet';
 import { Run, Money, base } from 'grommet-icons';
 import { deepMerge } from "grommet/utils";
 import SpendSpark from './SpendSpark.js'
-import NetworkBar from './NetworkBar.js'
 import SpendBox from './SpendBox.js'
 import SpendBoxLegend from './SpendBoxLegend.js'
 import { format } from 'd3-format'
 import calculateIntervals from './calcInterval.js'
-
-import RaceSelect from './RaceSelect.js'
 
 
    const iconTheme = deepMerge(base, {
@@ -58,7 +55,6 @@ var PacTable = function (props) {
 			}, [])
 			tableData['timeline'] = calculateIntervals(timeline)
 			tableData['pac'] = rows
-			console.log('render triggered')
 			setTableData(tableData)
 		}
 	}, [props.adData])

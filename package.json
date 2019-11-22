@@ -29,6 +29,7 @@
     "react-scripts": "3.2.0",
     "react-sparklines": "^1.7.0",
     "react-vega": "^7.0.1",
+    "react-virtualized": "^9.21.2",
     "react-vis": "^1.11.7",
     "styled-components": "^4.4.0",
     "vega": "^5.7.3",

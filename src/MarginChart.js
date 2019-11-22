@@ -1,8 +1,10 @@
 import './App.css';
-import React, { useState, useLayoutEffect, useEffect, useRef } from 'react';
-import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, Heading } from 'grommet';
-import { ResponsiveLine } from '@nivo/line'
+import React, { useState, useEffect } from 'react';
+import { Box, Text } from 'grommet';
+import { Line } from '@nivo/line'
 import { format } from 'd3-format'
+import { AutoSizer } from 'react-virtualized'
+
 const theme = {
   axis: {
   	ticks: {
@@ -23,13 +25,10 @@ const theme = {
 }
 var MarginChart = function (props) {
 	const [marginData, setMarginData] = useState([]);
-	const [sides, setSides] = useState([])
 		useEffect(() => { // Calculate margin data.
 		var adData = props.adData
 		if(adData.length != 0){ 
-			var sideKeys = []
 			let rows = adData.reduce((acc, curVal) =>{ // Reduce the adData to weeks with two side totals.
-				if (sideKeys.indexOf(curVal.side) == -1) { sideKeys.push(curVal.side); } // Get both sides keys
 				let rowIndex = acc.findIndex(el=> el.week == curVal.week)
 				if (rowIndex!=-1) {
 					if( (curVal.side+'ads') in acc[rowIndex]){
@@ -46,7 +45,7 @@ var MarginChart = function (props) {
 				}
 				return acc;
 			}, [])
-			sideKeys = sideKeys.sort()
+			var sideKeys=props.sides.map(el=>el.long)
 			rows.forEach(el=>{
 				var sidesFound = []
 				// This checks that both sides are found within the time interval, someones it's just one side.
@@ -68,27 +67,31 @@ var MarginChart = function (props) {
 				el['week'] = new Date(Date.parse(el['week']))
 			})
 			rows = rows.sort((a, b) => a['week']-b['week'])
-			setSides(sideKeys)
 			setMarginData(rows)
-			console.log(rows)
 		}
 	}, [props.adData])
 	return (
 	<Box gridArea="chart1" pad={{ horizontal: "small", vertical: "small", top: "5px" }} flex>
 		<Text> Ads per week by side </Text>
-		<ResponsiveLine
+		<AutoSizer>
+    	{({ height, width }) => (
+		<Line
+			height={height}
+			width={width}
+			colors={(val)=>val.color}
 			margin={{ top: 10, right: 15, bottom: 25, left: 35 }}
-			colors={['#2580db','#990033','green']}
 		    data={[
 		    	{
 			    	'id': 'side1', 
-			    	'data': marginData.filter(el=>(sides[0]+'ads') in el)
-			    			.map(el=>{ return {x: el.week, y: el[sides[0]+'ads']}})
+			    	'data': marginData.filter(el=>(props.sides[0].long+'ads') in el)
+							.map(el=>{ return {x: el.week, y: el[props.sides[0].long+'ads']}}),
+					'color': props.sides.length>0 ? props.sides[0].color : 'red'
 		    	},
 		    	{
 			    	'id': 'side2', 
-			    	'data': marginData.filter(el=>(sides[1]+'ads') in el)
-			    			.map(el=>{ return {x: el.week, y: el[sides[1]+'ads']}})
+			    	'data': marginData.filter(el=>(props.sides[1].long+'ads') in el)
+							.map(el=>{ return {x: el.week, y: el[props.sides[1].long+'ads']}}),
+					'color':props.sides.length>0 ? props.sides[1].color : 'red'
 		    	}
 		    ]}
 		    xScale={{
@@ -120,6 +123,8 @@ var MarginChart = function (props) {
 		    enableSlices={false}
 		    theme={theme}
 		  />
+		)}
+		</AutoSizer>
 	 </Box>
 	)
 }
