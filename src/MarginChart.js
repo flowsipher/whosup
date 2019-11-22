@@ -73,6 +73,7 @@ var MarginChart = function (props) {
 	return (
 	<Box gridArea="chart1" pad={{ horizontal: "small", vertical: "small", top: "5px" }} flex>
 		<Text> Ads per week by side </Text>
+		<Box flex>
 		<AutoSizer>
     	{({ height, width }) => (
 		<Line
@@ -125,6 +126,7 @@ var MarginChart = function (props) {
 		  />
 		)}
 		</AutoSizer>
+		</Box>
 	 </Box>
 	)
 }

@@ -48,6 +48,7 @@ var NetworkSplit = function (props) {
 	return (
 		<Box gridArea="chart3" pad={{ horizontal: "small", vertical: "medium", top: "5px" }} flex>
 			<Text> Percentage of side spend per network </Text>
+			<Box flex>
 			<AutoSizer>
     		{({ height, width }) => (
 			<ScatterPlot
@@ -92,6 +93,7 @@ var NetworkSplit = function (props) {
 			/>
 			)}
 			</AutoSizer>
+			</Box>
 		</Box>
     )
 }

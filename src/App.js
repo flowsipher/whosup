@@ -86,6 +86,7 @@ function App() {
             			</TableRow>
             		</TableHeader>
             	</Table>
+            	<Box fill>
 			    <Grid fill rows={["flex", "flex", "flex"]} columns={[]}  areas={[
 	              ["chart1"],
 	              ["chart2"],
@@ -95,13 +96,16 @@ function App() {
     	         <ProportionBar adData={adData.ad} sides={adData.sides}> </ProportionBar>
     	         <NetworkSplit adData={adData.ad} sides={adData.sides}> </NetworkSplit>
                 </Grid>
+                </Box>
              </Box>
           </Grid>
 		</Grommet>
 	);
 }
 /* 			
-
+<MarginChart adData={adData.ad} sides={adData.sides}> </MarginChart>
+    	         <ProportionBar adData={adData.ad} sides={adData.sides}> </ProportionBar>
+    	         <NetworkSplit adData={adData.ad} sides={adData.sides}> </NetworkSplit>
  <ControlPanel changeQuery={updateQuery} />
  #signalListeners={signalListeners}
 */
