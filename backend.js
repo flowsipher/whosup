@@ -98,7 +98,7 @@ app.get('/race', (req, res) => {
 	    console.log( queryData.sql );
       	console.log( queryData.bindings );
 	}).then((weekresults)=>{
-		knex.raw('select p.name, percentile_cont(.25) WITHIN GROUP (order by a.rate) as quartile1, percentile_cont(.5) WITHIN GROUP (order by a.rate) as quartile2, percentile_cont(.75) WITHIN GROUP (order by a.rate) as quartile3, min(a.rate) as whiskerLow, max(a.rate) as whiskerHigh from ads a, pacs p where a.pacid = p.id and p.race = ? and p.cycle = ? group by p.name', [req.query.race, req.query.cycle]).then((pacresults)=>{
+		knex.raw('select p.name, percentile_cont(.25) WITHIN GROUP (order by a.rate) as quartile1, percentile_cont(.5) WITHIN GROUP (order by a.rate) as quartile2, percentile_cont(.75) WITHIN GROUP (order by a.rate) as quartile3, percentile_cont(.1) WITHIN GROUP (order by a.rate) as whiskerLow, percentile_cont(.9) WITHIN GROUP (order by a.rate) as whiskerHigh from ads a, pacs p where a.pacid = p.id and p.race = ? and p.cycle = ? group by p.name', [req.query.race, req.query.cycle]).then((pacresults)=>{
 			res.json({weekresults: weekresults, pacresults: pacresults})
 		})
 	})
@@ -108,3 +108,6 @@ app.get('/race', (req, res) => {
 //to_date('201643', 'iyyyiw')
 //TO WEEK OF to_date(TO_CHAR(DATE_TRUNC('week', airdate), 'YYYYWW'), 'yyyyww') from ads limit 1;
 
+/*
+select p.name, percentile_cont(.1) WITHIN GROUP (order by a.rate) as quartile1, percentile_cont(.5) WITHIN GROUP (order by a.rate) as quartile2, percentile_cont(.9) WITHIN GROUP (order by a.rate) as quartile3, min(a.rate) as whiskerLow, max(a.rate) as whiskerHigh from ads a, pacs p where a.pacid = p.id and p.race = 'Senate' and p.cycle = '2018' group by p.name;
+*/

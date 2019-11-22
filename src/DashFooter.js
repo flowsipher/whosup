@@ -9,7 +9,7 @@ import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, gene
 } from 'grommet';
 import * as moment from 'moment';
 import { deepMerge } from "grommet/utils";
-import { Run, Money, base, StatusInfoSmall } from 'grommet-icons';
+import { Run, Money, base, StatusInfoSmall, StopFill } from 'grommet-icons';
 
 const iconTheme = deepMerge(base, {
   	icon: {
@@ -21,10 +21,11 @@ const iconTheme = deepMerge(base, {
 })
 
 var DashFooter = function (props) {
-	const sideKeys = props.sides.map((s)=>
-		<span className="legendItem"> 
-			<b style={{color: s.color}}> {s.short}</b> - {s.long}
-		</span>
+	const sideKeys = props.sides.map((s)=><Box direction="row" key={s} align="center">
+		<nav className="bd-color" style={{background: s.color}}></nav>
+		<Text className="legendItem"> 
+			 - {s.long}
+		</Text> </Box>
 	) 
 	return (
 		<Box gridArea="footer" direction="row" pad={{ horizontal: "small" }}>
@@ -32,15 +33,17 @@ var DashFooter = function (props) {
 	        	<TableFooter>
 	            	<TableRow>
 		            	<TableCell>
-		            		<span className="legendItem">
-		            			<Money size="medium" theme={iconTheme} className="svgIcon" /> - IE
-		            		</span>
-		            		<span className="legendItem">
-		            			<Run size="medium" theme={iconTheme} className="svgIcon" /> - Candidate
-		            		</span>
-		            	</TableCell>
-		            	<TableCell>
-		            		{sideKeys}
+			            	<Box direction="row" align="center">
+			            		<span className="legendItem">
+			            			<Money size="medium" theme={iconTheme} className="svgIcon" /> - IE
+			            		</span>
+			            		<span className="legendItem">
+			            			<Run size="medium" theme={iconTheme} className="svgIcon" /> - Candidate
+			            		</span>
+			            		<Box direction="row" align="center">
+			            			{sideKeys}
+			            		</Box>
+			            	</Box>
 		            	</TableCell>
 	            	</TableRow>
 	        	</TableFooter> 

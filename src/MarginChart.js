@@ -74,7 +74,7 @@ var MarginChart = function (props) {
 		}
 	}, [props.adData])
 	return (
-	<Box gridArea="chart1" pad={{ horizontal: "medium", vertical: "small" }} flex>
+	<Box gridArea="chart1" pad={{ horizontal: "small", vertical: "small", top: "5px" }} flex>
 		<Text> Ads per week by side </Text>
 		<ResponsiveLine
 			margin={{ top: 10, right: 15, bottom: 25, left: 35 }}

@@ -21,19 +21,16 @@ const theme = {
 }
 var ProportionBar = function (props) {
 	const [proporData, setProporData] = useState([]);
-	const [sideKeys,setSideKeys] = useState([])
 	useEffect(() => { // Calculate margin data.
 		let adData = props.adData;
 		var timeline = {start: new Date('December 17, 1995 03:24:00'), end: new Date('December 17, 1995 03:24:00')}
 		if(adData.length != 0){ 
-			var sideKeys = []
 			let rows = adData.reduce((acc, curVal) =>{ // Reduce the adData to weeks with two side totals.
 				let buyDate = new Date(Date.parse(curVal['week']))
 				// Timeline calculation
 				timeline['start'] = timeline['start'].getFullYear()<2000 ? buyDate : timeline['start']
 				timeline['start'] = buyDate<timeline['start'] ? buyDate : timeline['start']
 				timeline['end'] = buyDate>timeline['end'] ? buyDate : timeline['end']
-				if (sideKeys.indexOf(curVal.side) == -1) { sideKeys.push(curVal.side); } // Get both sides keys
 				let rowIndex = acc.findIndex(el=> el.week == curVal.week)
 				if (rowIndex!=-1) {
 					if( (curVal.side+'ads') in acc[rowIndex]){
@@ -51,49 +48,54 @@ var ProportionBar = function (props) {
 				return acc;
 			}, [])
 			timeline = calculateInterval(timeline)
-			console.log(timeline)
-			sideKeys = sideKeys.sort()
 			let barData = []
+			let sideKeys = props.sides.map(s=>s.long)
 			timeline.ints.forEach(t=>{ // Reduce the buy weeks to the calculated intervals, then aggregate each sidesvalues
 				let intervalBuys = rows.filter(b=>moment(b.week).isBetween(t[0], t[1]))
-				console.log(intervalBuys)
 				let ib;
 				if (intervalBuys.length>0){
-					ib = intervalBuys.reduce((acc,val)=>{return {int: t, 
-															[sideKeys[0]]: sideKeys[0]+'ads' in val ? acc[sideKeys[0]]+val[sideKeys[0]+'ads'] : acc[sideKeys[0]],
-															[sideKeys[1]]: sideKeys[1]+'ads' in val ? acc[sideKeys[1]]+val[sideKeys[1]+'ads'] : acc[sideKeys[1]],
-															}; },{int: t[0], [sideKeys[0]]: 0, [sideKeys[1]]: 0})
+					ib = intervalBuys.reduce((acc,val)=>{
+						var returnObj = {int: t, [sideKeys[0]]: sideKeys[0]+'ads' in val ? acc[sideKeys[0]]+val[sideKeys[0]+'ads'] : acc[sideKeys[0]],[sideKeys[1]]: sideKeys[1]+'ads' in val ? acc[sideKeys[1]]+val[sideKeys[1]+'ads'] : acc[sideKeys[1]] }
+						sideKeys.forEach(s=>{
+							returnObj[(s+'Color')] = props.sides.filter(sk=>sk.long==s)[0].color
+						})
+						return returnObj;
+					}, {int: t[0], [sideKeys[0]]: 0, [sideKeys[1]]: 0})
 				} else{
 					ib={int:t, [sideKeys[0]]: 0, [sideKeys[0]]: 0}
 				}
 				barData.push(ib);
 			})
-			console.log(barData)
+
 			barData = barData.map(b=>{ // Turn raw values of their spend into proportions.
 				let dateFormatString = timeline.unit == 'week' ? 'M/D': 'MMM.'
 				let dateDisplay = timeline.change>1 ? (b.int[0].format(dateFormatString)+'-'+b.int[1].format(dateFormatString)) : b.int[0].format(dateFormatString)
-				return {int: dateDisplay, [sideKeys[0]]: b[sideKeys[0]]/(b[sideKeys[0]]+b[sideKeys[1]]), [sideKeys[1]]: b[sideKeys[1]]/(b[sideKeys[0]]+b[sideKeys[1]])}
+				var returnObj = {int: dateDisplay, [sideKeys[0]]: b[sideKeys[0]]/(b[sideKeys[0]]+b[sideKeys[1]]), [sideKeys[1]]: b[sideKeys[1]]/(b[sideKeys[0]]+b[sideKeys[1]])}
+				sideKeys.forEach(s=>{
+					returnObj[(s+'Color')] = props.sides.filter(sk=>sk.long==s)[0].color
+				})
+				return returnObj;
 			})
 			console.log(barData)
 			barData = barData.reverse()
 			rows = rows.sort((a, b) => b['week']-a['week'])
-			setSideKeys(sideKeys)
 			setProporData(barData)
 		}
 	}, [props.adData])
 	return (
-	<Box gridArea="chart2" pad={{ horizontal: "medium", vertical: "small" }} flex>
-		<Text> Proportion of total spending of each side by month </Text>
+	<Box gridArea="chart2" pad={{ horizontal: "small", vertical: "small" }} flex>
+		<Text> Proportion of total spending by side </Text>
 		<ResponsiveBar
 			   theme={theme}
 		       data={proporData}
-		       keys={sideKeys}
+		       colors={(val)=>{return val.data[(val.id+'Color')];}}
+		       indexBy='int'
+		       keys={props.sides.map(s=>s.long)}
 		       enableLabel={false}
 		       minValue={0}
 		       maxValue={1}
 		       indexBy="int"
 		       margin={{ top: 0, right: 17, bottom: 35, left: 85 }}
-		       colors={['#2580db','#990033','green']}
 		       layout="horizontal"
 		       axisTop={null}
 		       axisLeft={{ tickSize: 0, tickPadding: 5, tickRotation: 0, legend: '', legendOffset: 0 }}

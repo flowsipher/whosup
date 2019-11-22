@@ -6,6 +6,7 @@ import MarginChart from './MarginChart.js'
 import ProportionBar from './ProportionBar.js'
 import PacTable from './PacTable.js'
 import RaceSelect from './RaceSelect.js'
+import NetworkSplit from './NetworkSplit.js'
 import { Run, Money, base } from 'grommet-icons';
 import DashFooter from './DashFooter.js'
 import { Grommet, Box, Button, Grid, Text, Select, ThemeContext, DataTable, generate,
@@ -25,6 +26,24 @@ const iconTheme = deepMerge(base, {
   	}
 })
 
+const availableRaces = [
+	'Senate',
+	'House',
+	'President',
+	'Governor',
+	'Attorney General',
+	'Secretary of State',
+	'Superintendent of Public Instruction',
+	'State Treasurer',
+	'Mayor',
+	'Prop 127',
+	'Prop 305',
+	'Prop 126',
+	'Impeachment',
+	'Tax Returns',
+	'GOTV',
+	'Red for Ed'
+   ]
 
 const partisanColors = {'Democrat': '#2580db', 'Republican': '#990033'}
 const colors = ['green', 'purple', 'orange'];
@@ -38,33 +57,26 @@ const startingQuery = {
 }
 
 function App() {
-	const [adData, setAdData] = useState([]);
+	const [adData, setAdData] = useState({ad: [], pac: [], sides: []});
 	const [adQuery, setAdQuery] = useState(startingQuery);
-	const [pacData, setPacData] = useState([])
-	const [sides, setSides] = useState([])
 	useEffect(() => { // Get starting chart data.
 		axios.get(process.env.REACT_APP_GET_ADDATA+'/race', {params: adQuery}) 
 		.then(function (response) {
+			console.log("api response")
 			console.log(response.data)
-			setPacData(response.data.pacresults.rows)
-			setAdData(response.data.weekresults);
+			var sides = [];
+			response.data.weekresults.forEach(ad=>{
+				if (sides.indexOf(ad.side) == -1){
+					sides.push(ad.side);
+				}
+			})
+			sides = sides.sort()
+			sides = sides.map(s=>{
+				return {short: s.slice(0,1), long: s, color: s in partisanColors ? partisanColors[s]: colors[sides.indexOf(s)]}
+			})
+			setAdData({pac: response.data.pacresults.rows, ad: response.data.weekresults, sides: sides})
 		})
 	}, [adQuery]);
-	useEffect(()=>{
-		var sides = [];
-		adData.forEach(ad=>{
-			if (sides.indexOf(ad.side) == -1){
-				sides.push(ad.side);
-			}
-		})
-		sides = sides.sort()
-		sides = sides.map(s=>{
-			return {short: s.slice(0,1), long: s, color: s in partisanColors ? partisanColors[s]: colors[sides.indexOf(s)]}
-		})
-		console.log(sides)
-		setSides(sides)
-	}, [adData])
-
 	return (
 		<Grommet full theme={generate(20, 5)}>
 		    <Grid fill rows={["flex"]} columns={["2/3", "1/3"]} areas={[
@@ -72,28 +84,33 @@ function App() {
               ['footer', 'footer']
             ]}
           >
-            <PacTable adData={adData} sides={sides} pacData={pacData} race={adQuery.race}
+            <PacTable adData={adData} race={adQuery.race}
 			onRaceSelect={(option) =>{ adQuery.race = option; setAdQuery(JSON.parse(JSON.stringify(adQuery))); }}
 			> </PacTable>
-            <DashFooter sides={sides}> </DashFooter>
-		    <Grid fill rows={["xxsmall", "1/3", "1/3", "1/3"]} gridArea={'charts'} areas={[
-              ['chartheader'],
-              ["chart1"],
-              ["chart2"],
-              ["chart3"]
-            ]}>
-            <Box gridArea="chartheader" direction="row" pad={{ horizontal: "small", vertical: "small" }} fill>
-	             <Table> 
-	             	<TableHeader  className="noLeftPad">
-	             		<TableRow className="noLeftPad">
-	             			<TableCell className="noLeftPad"> Race Comparisons </TableCell>
-	             		</TableRow>
-	             	</TableHeader>
-	             </Table>
+            <DashFooter sides={adData.sides}> </DashFooter>
+            <Box gridArea="charts" direction="column" pad={{ horizontal: "small", top:"4px" }} fill>
+            	<Table> 
+            		<TableHeader  className="noLeftPad">
+            			<TableRow className="noLeftPad">
+            				<TableCell className="noLeftPad" size="flex" fill> <br /> Side Comparison </TableCell>
+            				<TableCell size="flex">
+	    						<RaceSelect options={availableRaces} value={adQuery.race} onChange={(option) =>{ adQuery.race = option; setAdQuery(JSON.parse(JSON.stringify(adQuery))); }}> </RaceSelect>
+            				</TableCell>
+            			</TableRow>
+            		</TableHeader>
+            	</Table>
+            	<Box className="gridBox">
+			    <Grid fill rows={["flex", "flex", "flex"]}  areas={[
+	              ["chart1"],
+	              ["chart2"],
+	              ["chart3"]
+	            ]}>
+    	         <MarginChart adData={adData.ad} sides={adData.sides}> </MarginChart>
+    	         <ProportionBar adData={adData.ad} sides={adData.sides}> </ProportionBar>
+    	         <NetworkSplit adData={adData.ad} sides={adData.sides}> </NetworkSplit>
+                </Grid>
+                </Box>
              </Box>
-	         <MarginChart adData={adData}> </MarginChart>
-	         <ProportionBar adData={adData}> </ProportionBar>
-            </Grid>
           </Grid>
 		</Grommet>
 	);

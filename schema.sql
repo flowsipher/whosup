@@ -35,6 +35,3 @@ CREATE TABLE ads (
 \COPY pacs(cycle, district, juris, name, side, race, id) FROM '/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/results/comsupload.csv' DELIMITER ',' CSV HEADER;
 
 \COPY ads(airdate, rate, program, cycle, airtime, pacid, stationid) FROM '/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/results/adsupload.csv' DELIMITER ',' CSV HEADER;
-
-/media/andrew/F08C9B848C9B444E/analysis/tv/fccscraper/
-
