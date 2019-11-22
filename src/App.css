@@ -12,6 +12,9 @@
 .gridBox{
   height: 500px !important;
 }
+.pacText{
+  color: black;
+}
 .test{
   height: 100vh;
 }

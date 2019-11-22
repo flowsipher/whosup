@@ -31,7 +31,7 @@ var DashFooter = function (props) {
 	        	<TableFooter>
 	            	<TableRow>
 		            	<TableCell>
-			            	<Box direction="row" align="center">
+			            	<Box direction="row" align="center" fill>
 			            		<span className="legendItem">
 			            			<Money size="medium" theme={iconTheme} className="svgIcon" /> - IE
 			            		</span>
@@ -41,6 +41,9 @@ var DashFooter = function (props) {
 			            		<Box direction="row" align="center">
 			            			{sideKeys}
 			            		</Box>
+								<span style={{marginLeft:'auto'}}>
+								 Want to explore yourself? Get the data <a href="https://github.com/flowsipher/FCCAdData">here.</a>
+								</span>
 			            	</Box>
 		            	</TableCell>
 	            	</TableRow>

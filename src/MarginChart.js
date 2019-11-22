@@ -89,9 +89,9 @@ var MarginChart = function (props) {
 		    	},
 		    	{
 			    	'id': 'side2', 
-			    	'data': marginData.filter(el=>(props.sides[1].long+'ads') in el)
-							.map(el=>{ return {x: el.week, y: el[props.sides[1].long+'ads']}}),
-					'color':props.sides.length>0 ? props.sides[1].color : 'red'
+			    	'data': props.sides.length>1 ? marginData.filter(el=>(props.sides[1].long+'ads') in el)
+							.map(el=>{ return {x: el.week, y: el[props.sides[1].long+'ads']}}) : [],
+					'color':props.sides.length>1 ? props.sides[1].color : 'red'
 		    	}
 		    ]}
 		    xScale={{

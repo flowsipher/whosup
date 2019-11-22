@@ -66,7 +66,7 @@ var PacTable = function (props) {
 		render: (val)=> {
 			return val.juris=='Non-Candidate Issue Ads' ? <Money size="medium" theme={iconTheme} color={val.color}/> : 
 		<Run size="medium" theme={iconTheme} color={val.color}/>}},
-		{header: "", property: "name", sortable: false, search: false, primary: true, render: (val)=>{return <span> {val.name} </span>}},
+		{header: "", property: "name", sortable: false, search: false, primary: true, render: (val)=>{return <span className="pacText"> {val.name} </span>}},
 		{header: "Timeline", property: "buys", render: (val)=>{return <SpendSpark timeline={tableData.timeline} 
 		buyData={val.buys} color={val.color} ></SpendSpark> }},
 		{header: "Spend", property: "cost", align: "end", sortable: true, 
